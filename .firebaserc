@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "staging": "cloud-notes-67a24",
+    "deploy": "cloud-notes-67a24"
+  },
+  "targets": {},
+  "etags": {}
+}

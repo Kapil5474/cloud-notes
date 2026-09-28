@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloud Notes | My Notes</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">☁ Cloud Notes <span class="dot">·</span></div>
+    <nav class="nav" id="nav">
+      <button class="nav-item active" data-section="dashboard"><span class="ic">⌂</span> Dashboard</button>
+      <button class="nav-item" data-section="notes"><span class="ic">▤</span> My Notes</button>
+      <button class="nav-item" data-section="create"><span class="ic">＋</span> Create Note</button>
+      <button class="nav-item" data-section="upload"><span class="ic">⇧</span> Upload Note</button>
+      <button class="nav-item" data-section="subjects"><span class="ic">▦</span> Subjects</button>
+      <button class="nav-item" data-section="favorites"><span class="ic">☆</span> Favorites</button>
+      <button class="nav-item" data-section="profile"><span class="ic">◯</span> Profile</button>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="profile-chip">
+        <div class="profile-avatar" id="chip-avatar">?</div>
+        <div class="profile-chip-info">
+          <div class="profile-chip-name" id="chip-name">Loading…</div>
+          <div class="profile-chip-email" id="chip-email">&nbsp;</div>
+        </div>
+      </div>
+      <button class="logout-btn" id="logout-btn">↪ Log out</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <div class="topbar-title" id="section-title">Dashboard</div>
+        <div class="topbar-hello">Hi, <strong id="topbar-name">…</strong> — here's what's in your library.</div>
+      </div>
+    </div>
+
+    <!-- ===== DASHBOARD ===== -->
+    <section class="section" id="section-dashboard">
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-icon">📝</div><div class="stat-value" id="stat-total">0</div><div class="stat-label">Total Notes</div></div>
+        <div class="stat-card"><div class="stat-icon">📁</div><div class="stat-value" id="stat-uploaded">0</div><div class="stat-label">Uploaded Files</div></div>
+        <div class="stat-card"><div class="stat-icon">⭐</div><div class="stat-value" id="stat-fav">0</div><div class="stat-label">Favorites</div></div>
+        <div class="stat-card"><div class="stat-icon">📚</div><div class="stat-value" id="stat-subjects">0</div><div class="stat-label">Subjects</div></div>
+      </div>
+      <div class="paper-panel">
+        <h3 style="font-family:var(--font-display);margin-top:0;">Recent notes</h3>
+        <div id="dashboard-recent"><div class="loading-line">Loading…</div></div>
+      </div>
+    </section>
+
+    <!-- ===== MY NOTES ===== -->
+    <section class="section" id="section-notes" style="display:none;">
+      <div class="paper-panel">
+        <div class="controls-row">
+          <input type="text" id="notes-search" placeholder="🔍 Search notes…">
+          <select id="filter-subject"><option value="">All Subjects</option></select>
+          <select id="filter-priority">
+            <option value="">All Priorities</option>
+            <option value="Normal">Normal</option>
+            <option value="Important">Important</option>
+            <option value="Very Important">Very Important</option>
+          </select>
+          <select id="filter-fav">
+            <option value="">All Notes</option>
+            <option value="fav">Favorites</option>
+            <option value="notfav">Not Favorites</option>
+          </select>
+          <select id="sort-order">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="title-az">Title A–Z</option>
+            <option value="title-za">Title Z–A</option>
+          </select>
+        </div>
+        <div id="notes-count" style="font-size:12px;color:var(--paper-muted);margin-bottom:10px;">Showing 0 notes</div>
+        <div style="overflow-x:auto;">
+          <table class="notes-table">
+            <thead><tr><th>Note</th><th>Subject</th><th>Type</th><th>Priority</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody id="notes-tbody"></tbody>
+          </table>
+        </div>
+        <div id="notes-empty" class="empty-state" style="display:none;">
+          <div class="big">📝</div>
+          <h3>No notes yet</h3>
+          <p>Create your first note or upload a study file to start building your Cloud Notes library.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CREATE NOTE ===== -->
+    <section class="section" id="section-create" style="display:none;">
+      <div class="paper-panel">
+        <form id="create-form" class="form-grid">
+          <div class="form-field span-2"><label>Note Title</label><input type="text" id="cf-title" required></div>
+          <div class="form-field"><label>Subject</label><input type="text" id="cf-subject" required></div>
+          <div class="form-field"><label>Unit / Chapter</label><input type="text" id="cf-unit"></div>
+          <div class="form-field"><label>Priority</label>
+            <select id="cf-priority">
+              <option>Normal</option><option>Important</option><option>Very Important</option>
+            </select>
+          </div>
+          <div class="form-field"><label>Tags</label><input type="text" id="cf-tags" placeholder="comma, separated"></div>
+          <div class="form-field span-2"><label>Description</label><input type="text" id="cf-desc"></div>
+          <div class="form-field span-2"><label>Note Content</label><textarea id="cf-content" required></textarea></div>
+          <div class="form-field"><label style="display:flex;align-items:center;gap:8px;text-transform:none;font-weight:500;">
+            <input type="checkbox" id="cf-fav" style="width:auto;"> Add to Favorites</label></div>
+          <div class="form-field span-2" style="text-align:right;">
+            <button type="submit" class="btn btn-teal">✓ Save Note</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== UPLOAD ===== -->
+    <section class="section" id="section-upload" style="display:none;">
+      <div class="paper-panel">
+        <form id="upload-form" class="form-grid">
+          <div class="form-field span-2"><label>File (PDF, image, doc — under 700 KB)</label><input type="file" id="uf-file" required></div>
+          <div class="form-field span-2"><label>Note Title</label><input type="text" id="uf-title" required></div>
+          <div class="form-field"><label>Subject</label><input type="text" id="uf-subject" required></div>
+          <div class="form-field"><label>Priority</label>
+            <select id="uf-priority"><option>Normal</option><option>Important</option><option>Very Important</option></select>
+          </div>
+          <div class="form-field span-2" style="text-align:right;">
+            <button type="submit" class="btn btn-teal">⇧ Upload</button>
+          </div>
+        </form>
+        <p style="font-size:12px;color:var(--paper-muted);margin-top:6px;">
+          Small files are stored directly in your library. For larger files, connect Firebase Storage and this form can be pointed at it instead.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== SUBJECTS ===== -->
+    <section class="section" id="section-subjects" style="display:none;">
+      <div class="paper-panel" id="subjects-panel">
+        <div class="loading-line">Loading…</div>
+      </div>
+    </section>
+
+    <!-- ===== FAVORITES ===== -->
+    <section class="section" id="section-favorites" style="display:none;">
+      <div class="paper-panel">
+        <div style="overflow-x:auto;">
+          <table class="notes-table">
+            <thead><tr><th>Note</th><th>Subject</th><th>Type</th><th>Priority</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody id="fav-tbody"></tbody>
+          </table>
+        </div>
+        <div id="fav-empty" class="empty-state" style="display:none;">
+          <div class="big">☆</div><h3>No favorites yet</h3>
+          <p>Star notes from My Notes to pin them here.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROFILE ===== -->
+    <section class="section" id="section-profile" style="display:none;">
+      <div class="paper-panel">
+        <div class="profile-hero">
+          <div class="profile-hero-avatar" id="profile-avatar">?</div>
+          <div>
+            <div class="profile-hero-name" id="profile-name-display">Loading…</div>
+            <div class="profile-hero-email" id="profile-email-display">&nbsp;</div>
+          </div>
+        </div>
+        <form id="profile-form" class="form-grid" style="max-width:420px;">
+          <div class="form-field span-2"><label>Full name</label><input type="text" id="pf-name" required></div>
+          <div class="form-field span-2" style="text-align:right;">
+            <button type="submit" class="btn btn-teal">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- NOTE VIEW MODAL -->
+<div id="view-modal" style="display:none;position:fixed;inset:0;background:rgba(23,27,38,.55);z-index:200;align-items:center;justify-content:center;">
+  <div class="paper-panel" style="width:520px;max-width:92vw;max-height:80vh;overflow:auto;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <h2 id="vm-title" style="font-family:var(--font-display);margin:0 0 4px;"></h2>
+      <button class="icon-btn" onclick="closeViewModal()">✕</button>
+    </div>
+    <div style="font-size:12px;color:var(--paper-muted);margin-bottom:14px;" id="vm-meta"></div>
+    <div id="vm-content" style="white-space:pre-wrap;font-family:var(--font-mono);font-size:13px;line-height:1.6;"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/store.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

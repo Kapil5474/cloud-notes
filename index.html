@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloud Notes | Sign In</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="auth-shell">
+  <div class="auth-card">
+    <div class="auth-brand">☁ Cloud Notes <span class="dot">·</span></div>
+
+    <!-- LOGIN -->
+    <form id="login-form">
+      <p class="auth-sub">Sign in to get back to your notes.</p>
+      <div class="auth-error" id="login-error"></div>
+      <div class="field">
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" required autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn-primary">Sign In</button>
+      <p class="auth-switch">New here? <button type="button" id="show-signup">Create an account</button></p>
+    </form>
+
+    <!-- SIGNUP -->
+    <form id="signup-form" style="display:none;">
+      <p class="auth-sub">Create your account — your name shows up everywhere as you, not as anyone else.</p>
+      <div class="auth-error" id="signup-error"></div>
+      <div class="field">
+        <label for="signup-name">Full name</label>
+        <input type="text" id="signup-name" required autocomplete="name" placeholder="e.g. Harsh Patel">
+      </div>
+      <div class="field">
+        <label for="signup-email">Email</label>
+        <input type="email" id="signup-email" required autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="signup-password">Password</label>
+        <input type="password" id="signup-password" required autocomplete="new-password" minlength="6">
+      </div>
+      <button type="submit" class="btn-primary">Create Account</button>
+      <p class="auth-switch">Already have an account? <button type="button" id="show-login">Sign in</button></p>
+    </form>
+  </div>
+</div>
+
+<script src="js/store.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>
